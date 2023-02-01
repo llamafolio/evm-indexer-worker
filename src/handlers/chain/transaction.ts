@@ -72,7 +72,7 @@ export class ChainTransaction extends OpenAPIRoute {
         success: tx.receipts?.status === '1',
         adapter_id: tx.contract_interacted?.adapter?.adapter_id,
         value: tx.value,
-        token_transfers: tx.token_transfers_aggregate.nodes.map((token_transfer) => ({
+        token_transfers: tx.token_transfers_aggregate?.nodes.map((token_transfer) => ({
           symbol: token_transfer?.token_details?.symbol,
           decimals: token_transfer?.token_details?.decimals,
           token_address: token_transfer?.token,
