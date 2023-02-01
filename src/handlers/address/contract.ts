@@ -79,6 +79,8 @@ export class AddressContract extends OpenAPIRoute {
       if (contract.adapter) {
         contractData.protocol = contract.adapter.adapter_id
       }
+
+      return contractData
     })
 
     return apiSuccess(contractsData)
