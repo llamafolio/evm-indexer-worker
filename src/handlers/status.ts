@@ -30,9 +30,12 @@ export class Status extends OpenAPIRoute {
   }
 
   async handle(request: Request, env: Env) {
-    const chainsLastBlocksResponse = await getChainBlocks({
-      'x-hasura-admin-secret': env.HASURA_KEY,
-    })
+    const chainsLastBlocksResponse = await getChainBlocks(
+      {
+        'x-hasura-admin-secret': env.HASURA_KEY,
+      },
+      env.HASURA_API_URL,
+    )
 
     return apiSuccess(chainsLastBlocksResponse)
   }

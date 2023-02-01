@@ -37,9 +37,14 @@ export class ChainTransaction extends OpenAPIRoute {
   async handle(request: Request, env: Env, ctx: any, data: Record<string, any>) {
     const { chain, hash } = data
 
-    const { transactions } = await getTransaction(hash, chain, {
-      'x-hasura-admin-secret': env.HASURA_KEY,
-    })
+    const { transactions } = await getTransaction(
+      hash,
+      chain,
+      {
+        'x-hasura-admin-secret': env.HASURA_KEY,
+      },
+      env.HASURA_API_URL,
+    )
 
     const transactionsData: ITransaction[] = transactions.map((tx) => {
       let chain = tx.chain

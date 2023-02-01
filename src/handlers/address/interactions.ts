@@ -43,9 +43,13 @@ export class AddressInteraction extends OpenAPIRoute {
       return apiError('invalid address', 400)
     }
 
-    const { transactions } = await getContractInteracted(address.toLowerCase(), {
-      'x-hasura-admin-secret': env.HASURA_KEY,
-    })
+    const { transactions } = await getContractInteracted(
+      address.toLowerCase(),
+      {
+        'x-hasura-admin-secret': env.HASURA_KEY,
+      },
+      env.HASURA_API_URL,
+    )
 
     const interactions = transactions.map((transactions) => ({
       contract: transactions.contract_interacted.contract,

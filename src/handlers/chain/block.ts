@@ -93,15 +93,25 @@ export class ChainBlock extends OpenAPIRoute {
     const raw_blocks = []
 
     if (isBlockHash) {
-      const { blocks } = await getBlockByHash(block, chain, {
-        'x-hasura-admin-secret': env.HASURA_KEY,
-      })
+      const { blocks } = await getBlockByHash(
+        block,
+        chain,
+        {
+          'x-hasura-admin-secret': env.HASURA_KEY,
+        },
+        env.HASURA_API_URL,
+      )
 
       raw_blocks.push(...blocks)
     } else {
-      const { blocks } = await getBlockByNumber(parseInt(block), chain, {
-        'x-hasura-admin-secret': env.HASURA_KEY,
-      })
+      const { blocks } = await getBlockByNumber(
+        parseInt(block),
+        chain,
+        {
+          'x-hasura-admin-secret': env.HASURA_KEY,
+        },
+        env.HASURA_API_URL,
+      )
 
       raw_blocks.push(...blocks)
     }

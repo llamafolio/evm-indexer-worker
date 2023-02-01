@@ -19,12 +19,13 @@ import {
   IIndexerTransaction,
 } from './types'
 
-const API_URL = 'https://graph.kindynos.mx/v1/graphql'
-
-export const getChainBlocks = async (headers = {}): Promise<{ chain: string; indexed_blocks_amount: number }[]> => {
+export const getChainBlocks = async (
+  headers = {},
+  url: string,
+): Promise<{ chain: string; indexed_blocks_amount: number }[]> => {
   const query = getChainsIndexedStateQuery()
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -42,13 +43,14 @@ export const getTransactionHistory = async (
   chainsFilter: string[],
   protocolsFilter: string[],
   headers = {},
+  url: string,
 ): Promise<{
   transactions: IIndexerTransaction[]
   transactions_aggregate: { aggregate: { count: number } }
 }> => {
   const query = getTransactionHistoryQuery(address.toLowerCase(), limit, offset, chainsFilter, protocolsFilter)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -62,12 +64,13 @@ export const getTransactionHistory = async (
 export const getContractInteracted = async (
   address: string,
   headers = {},
+  url: string,
 ): Promise<{
   transactions: IIndexerInteractions[]
 }> => {
   const query = getContractsInteractedQuery(address.toLowerCase())
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -81,12 +84,13 @@ export const getContractInteracted = async (
 export const getTokensInteracted = async (
   address: string,
   headers = {},
+  url: string,
 ): Promise<{
   erc20_transfers: IIndexerERC20TokenInteractions[]
 }> => {
   const query = getTokensInteractedQuery(address.toLowerCase())
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -100,12 +104,13 @@ export const getTokensInteracted = async (
 export const getTokensBalances = async (
   address: string,
   headers = {},
+  url: string,
 ): Promise<{
   erc20_balances: IIndexerERC20TokenBalance[]
 }> => {
   const query = getTokensBalancesQuery(address.toLowerCase())
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -122,13 +127,14 @@ export const getTokensHolders = async (
   limit: number,
   offset: number,
   headers = {},
+  url: string,
 ): Promise<{
   erc20_balances: { address: string; balance: string }[]
   erc20_balances_aggregate: { aggregate: { count: number; sum: { balance: number } } }
 }> => {
   const query = getTokensHoldersQuery(token.toLowerCase(), chain, limit, offset)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -143,12 +149,13 @@ export const getBlockByNumber = async (
   block: number,
   chain: string,
   headers = {},
+  url: string,
 ): Promise<{
   blocks: IIndexerBlock[]
 }> => {
   const query = getBlockByNumberQuery(chain, block)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -163,12 +170,13 @@ export const getBlockByHash = async (
   block: string,
   chain: string,
   headers = {},
+  url: string,
 ): Promise<{
   blocks: IIndexerBlock[]
 }> => {
   const query = getBlockByHashQuery(chain, block)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -183,12 +191,13 @@ export const getContract = async (
   contract: string,
   chain: string,
   headers = {},
+  url: string,
 ): Promise<{
   contracts: IIndexerContract[]
 }> => {
   const query = getContractQuery(chain, contract)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),
@@ -203,12 +212,13 @@ export const getTransaction = async (
   transaction: string,
   chain: string,
   headers = {},
+  url: string,
 ): Promise<{
   transactions: IIndexerTransaction[]
 }> => {
   const query = getTransactionQuery(chain, transaction)
 
-  const res = await fetch(API_URL, {
+  const res = await fetch(url, {
     method: 'post',
     headers,
     body: JSON.stringify({ query }),

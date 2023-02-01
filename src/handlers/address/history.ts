@@ -141,6 +141,7 @@ export class AddressHistory extends OpenAPIRoute {
       {
         'x-hasura-admin-secret': env.HASURA_KEY,
       },
+      env.HASURA_API_URL,
     )
 
     const pages = (transactions_aggregate.aggregate.count / limit).toFixed(0)

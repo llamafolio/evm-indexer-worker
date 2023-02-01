@@ -53,9 +53,14 @@ export class ChainContract extends OpenAPIRoute {
   async handle(request: Request, env: Env, ctx: any, data: Record<string, any>) {
     const { chain, contract } = data
 
-    const { contracts } = await getContract(contract, chain, {
-      'x-hasura-admin-secret': env.HASURA_KEY,
-    })
+    const { contracts } = await getContract(
+      contract,
+      chain,
+      {
+        'x-hasura-admin-secret': env.HASURA_KEY,
+      },
+      env.HASURA_API_URL,
+    )
 
     if (contracts.length < 1) {
       return apiError('contract not found', 400)

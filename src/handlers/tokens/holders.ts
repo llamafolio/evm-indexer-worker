@@ -73,6 +73,7 @@ export class TokenHolders extends OpenAPIRoute {
       {
         'x-hasura-admin-secret': env.HASURA_KEY,
       },
+      env.HASURA_API_URL,
     )
 
     const pages = parseInt((erc20_balances_aggregate.aggregate.count / limitQuery).toFixed(0))

@@ -45,9 +45,13 @@ export class AddressERC20TokensInteractions extends OpenAPIRoute {
       return apiError('invalid address', 400)
     }
 
-    const { erc20_transfers } = await getTokensInteracted(address.toLowerCase(), {
-      'x-hasura-admin-secret': env.HASURA_KEY,
-    })
+    const { erc20_transfers } = await getTokensInteracted(
+      address.toLowerCase(),
+      {
+        'x-hasura-admin-secret': env.HASURA_KEY,
+      },
+      env.HASURA_API_URL,
+    )
 
     const interactions = erc20_transfers.map((transactions) => ({
       token: transactions.token_details.address,
