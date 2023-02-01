@@ -2,8 +2,9 @@ import {
   getBlockByHashQuery,
   getBlockByNumberQuery,
   getChainsIndexedStateQuery,
-  getContractQuery,
+  getContractForChainQuery,
   getContractsInteractedQuery,
+  getContractsQuery,
   getTokensBalancesQuery,
   getTokensHoldersQuery,
   getTokensInteractedQuery,
@@ -187,7 +188,27 @@ export const getBlockByHash = async (
   return data
 }
 
-export const getContract = async (
+export const getContracts = async (
+  contract: string,
+  headers = {},
+  url: string,
+): Promise<{
+  contracts: IIndexerContract[]
+}> => {
+  const query = getContractsQuery(contract)
+
+  const res = await fetch(url, {
+    method: 'post',
+    headers,
+    body: JSON.stringify({ query }),
+  })
+
+  const { data }: any = await res.json()
+
+  return data
+}
+
+export const getContractForChain = async (
   contract: string,
   chain: string,
   headers = {},
@@ -195,7 +216,7 @@ export const getContract = async (
 ): Promise<{
   contracts: IIndexerContract[]
 }> => {
-  const query = getContractQuery(chain, contract)
+  const query = getContractForChainQuery(chain, contract)
 
   const res = await fetch(url, {
     method: 'post',

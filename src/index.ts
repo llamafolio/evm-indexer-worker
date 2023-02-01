@@ -14,6 +14,8 @@ import {
 import { apiError } from '@/responses/responses'
 import { Env } from '@/types'
 
+import { AddressContract } from './handlers/address/contract'
+
 const router = OpenAPIRouter({
   schema: {
     info: {
@@ -32,6 +34,7 @@ router
   .get('/address/:address/interacted', AddressInteraction)
   .get('/address/:address/tokens', AddressERC20TokensInteractions)
   .get('/address/:address/balances', AddressERC20TokensBalances)
+  .get('/address/:address/contracts', AddressContract)
   .get('/chain/:chain/block/:block', ChainBlock)
   .get('/chain/:chain/contract/:contract', ChainContract)
   .get('/chain/:chain/tx/:hash', ChainTransaction)

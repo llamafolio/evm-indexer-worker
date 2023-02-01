@@ -1,6 +1,6 @@
 import { Bool, Int, Obj, OpenAPIRoute, Path, Str } from '@cloudflare/itty-router-openapi'
 
-import { getContract } from '@/graph/fetchers'
+import { getContractForChain } from '@/graph/fetchers'
 import { apiSuccess } from '@/responses/responses'
 import { Env } from '@/types'
 
@@ -53,7 +53,7 @@ export class ChainContract extends OpenAPIRoute {
   async handle(request: Request, env: Env, ctx: any, data: Record<string, any>) {
     const { chain, contract } = data
 
-    const { contracts } = await getContract(
+    const { contracts } = await getContractForChain(
       contract,
       chain,
       {

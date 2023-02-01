@@ -237,7 +237,26 @@ export const getBlockByNumberQuery = (chain: string, blockNumber: number): strin
     }
   `
 
-export const getContractQuery = (chain: string, contract: string): string => gql`
+export const getContractsQuery = (contract: string): string => gql`
+    query getContract {
+      contracts(where: { contract: { _eq: "${contract}" } }) {
+        block
+        chain
+        contract
+        creator
+        hash
+        parsed
+        abi {
+          abi
+        }
+        adapter {
+          adapter_id
+        }
+      }
+    }
+  `
+
+export const getContractForChainQuery = (chain: string, contract: string): string => gql`
     query getContract {
       contracts(where: { chain: { _eq: "${chain}" }, contract: { _eq: "${contract}" } }) {
         block
