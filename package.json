@@ -1,0 +1,30 @@
+{
+  "name": "indexer-worker",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230115.0",
+    "@typescript-eslint/eslint-plugin": "^5.50.0",
+    "@typescript-eslint/parser": "^5.50.0",
+    "eslint": "^8.33.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier":"^4.2.1",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
+    "eslint-plugin-unused-imports": "^2.0.0",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.5",
+    "wrangler": "^2.9.0"
+  },
+  "private": true,
+  "scripts": {
+    "start": "wrangler dev",
+    "deploy": "wrangler publish",
+    "format": "prettier --ignore-path .gitignore '**/*.{md,json,ts}' --write",
+    "lint": "eslint --ignore-path .gitignore '**/*.{md,json,ts}' --max-warnings=0 --fix"
+  },
+  "dependencies": {
+    "@cloudflare/itty-router-openapi": "^0.0.14",
+    "graphql": "^16.6.0",
+    "graphql-request": "^5.1.0",
+    "itty-cors": "^0.3.5"
+  }
+}
