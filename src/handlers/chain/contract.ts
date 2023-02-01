@@ -1,7 +1,7 @@
 import { Bool, Int, Obj, OpenAPIRoute, Path, Str } from '@cloudflare/itty-router-openapi'
 
 import { getContract } from '@/graph/fetchers'
-import { apiError, apiSuccess } from '@/responses/responses'
+import { apiSuccess } from '@/responses/responses'
 import { Env } from '@/types'
 
 interface IContract {
@@ -63,7 +63,7 @@ export class ChainContract extends OpenAPIRoute {
     )
 
     if (contracts.length < 1) {
-      return apiError('contract not found', 400)
+      return apiSuccess(undefined)
     }
 
     const contractData = contracts[0]
