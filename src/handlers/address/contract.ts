@@ -1,6 +1,7 @@
 import { Bool, Int, Obj, OpenAPIRoute, Path, Str } from '@cloudflare/itty-router-openapi'
 
 import { getContracts } from '@/graph/fetchers'
+import { IContract } from '@/handlers/chain'
 import { apiError, apiSuccess } from '@/responses/responses'
 import { Env } from '@/types'
 import { isHex } from '@/utils'
@@ -56,15 +57,7 @@ export class AddressContract extends OpenAPIRoute {
     )
 
     const contractsData = contracts.map((contract) => {
-      const contractData: {
-        block: number
-        chain: string
-        contract: string
-        creator: string
-        hash: string
-        abi?: any
-        protocol?: string
-      } = {
+      const contractData: IContract = {
         block: contract.block,
         chain: contract.chain,
         contract: contract.contract,
@@ -72,8 +65,12 @@ export class AddressContract extends OpenAPIRoute {
         hash: contract.hash,
       }
 
-      if (contract.abi) {
-        contractData.abi = JSON.parse(contract.abi.abi)
+      if (contract.contract_information?.abi) {
+        contractData.abi = JSON.parse(contract?.contract_information.abi)
+      }
+
+      if (contract.contract_information?.name) {
+        contractData.name = contract?.contract_information.name
       }
 
       if (contract.adapter) {

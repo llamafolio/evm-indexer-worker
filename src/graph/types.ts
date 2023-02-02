@@ -93,7 +93,7 @@ export interface IIndexerBlock {
 }
 
 export interface IIndexerContract {
-  abi?: { abi: string }
+  contract_information?: { abi?: string; name?: string }
   adapter?: { adapter_id: string }
   block: number
   chain: string

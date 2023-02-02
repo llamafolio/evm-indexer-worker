@@ -246,8 +246,10 @@ export const getContractsQuery = (contract: string): string => gql`
         creator
         hash
         parsed
-        abi {
+        verified
+        contract_information {
           abi
+          name
         }
         adapter {
           adapter_id
@@ -265,8 +267,10 @@ export const getContractForChainQuery = (chain: string, contract: string): strin
         creator
         hash
         parsed
-        abi {
+        verified
+        contract_information {
           abi
+          name
         }
         adapter {
           adapter_id

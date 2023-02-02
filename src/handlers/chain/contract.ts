@@ -4,7 +4,7 @@ import { getContractForChain } from '@/graph/fetchers'
 import { apiSuccess } from '@/responses/responses'
 import { Env } from '@/types'
 
-interface IContract {
+export interface IContract {
   block: number
   chain: string
   contract: string
@@ -12,6 +12,7 @@ interface IContract {
   hash: string
   protocol?: string
   abi?: any
+  name?: string
 }
 
 export class ChainContract extends OpenAPIRoute {
@@ -76,12 +77,12 @@ export class ChainContract extends OpenAPIRoute {
       hash: contractData.hash,
     }
 
-    if (contractData.abi) {
-      contractResponse.abi = JSON.parse(contractData.abi.abi)
+    if (contractData.contract_information?.abi) {
+      contractResponse.abi = JSON.parse(contractData?.contract_information.abi)
     }
 
-    if (contractData.adapter) {
-      contractResponse.protocol = contractData.adapter.adapter_id
+    if (contractData.contract_information?.name) {
+      contractResponse.name = contractData?.contract_information.name
     }
 
     return apiSuccess(contractResponse)

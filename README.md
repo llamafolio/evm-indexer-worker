@@ -9,8 +9,6 @@ This worker is a middleware between the GraphQL API from the EVM Indexer Hasura 
 
 While Hasura Cloud is able to create multiple queries for different data from the indexer, this worker simplifies it by creating common queries and exposing them through a Cloudflare Worker.
 
-
-
 ## Requirements
 
 - [Node](https://nodejs.org/en/)
